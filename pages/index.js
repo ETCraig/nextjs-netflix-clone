@@ -41,7 +41,7 @@ export default function Home({
       </Head>
 
       <div className={styles.main}>
-        <NavBar username="dev.etcraig@gmail.com" />
+        <NavBar />
         <Banner
           title="Avengers"
           subTitle="Rocks... Lots of Rocks."

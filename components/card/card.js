@@ -32,7 +32,8 @@ const Card = ({ imgUrl, size = "medium", id }) => {
         <Image
           src={imgSrc}
           alt="image"
-          layout="fill"
+          fill
+          sizes="undefined"
           onError={handleOnError}
           className={styles.cardImg}
         />
