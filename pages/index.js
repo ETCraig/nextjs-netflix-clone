@@ -46,6 +46,7 @@ export default function Home({
           title="Avengers"
           subTitle="Rocks... Lots of Rocks."
           imgUrl="/static/Avengers"
+          videoId="_Z3QKkl1WyM"
         />
 
         <div className={styles.sectionWrapper}>
