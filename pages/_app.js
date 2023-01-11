@@ -6,7 +6,7 @@ import Loading from "../components/loading/loading";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
