@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Banner from "../components/banner/banner";
-import Card from "../components/card/card";
 import SectionCards from "../components/card/section-cards";
 import NavBar from "../components/navbar/navbar";
-import styles from "../styles/Home.module.css";
 import { getPopularVideos, getVideos } from "../lib/videos";
+import { startFetchMyQuery } from "../lib/db/hasura";
+
+import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps(context) {
   const marvelVideos = await getVideos("marvel trailer");
@@ -31,6 +32,8 @@ export default function Home({
   productivityVideos,
   popularVideos,
 }) {
+  startFetchMyQuery();
+
   return (
     <>
       <Head>
