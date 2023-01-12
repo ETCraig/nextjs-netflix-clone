@@ -18,8 +18,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
-  height: 100vh;
+  /* width: 100%;
+  height: 100vh; */
 }
 
 .borderBoxShadow {
@@ -100,9 +100,12 @@
   margin: 0px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1024px) {
   .modal {
     width: 100%;
+    top: 10%;
+    bottom: 40px;
+    width: 50%;
   }
 }
 

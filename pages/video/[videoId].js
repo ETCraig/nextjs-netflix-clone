@@ -13,7 +13,6 @@ Modal.setAppElement("#__next");
 
 export async function getStaticProps(context) {
   const videoId = context.params.videoId;
-  console.log(videoId);
   const videoArray = await getYoutubeVideoById(videoId);
 
   return {
@@ -87,17 +86,15 @@ const Video = ({ video }) => {
     const val = !toggleDisLike;
     const favourited = val ? 0 : 1;
     const response = await runRatingService(favourited);
-    console.log("data", await response.json());
   };
 
   const handleToggleLike = async () => {
+    const val = !toggleLike;
     setToggleLike(val);
     setToggleDisLike(toggleLike);
 
-    const val = !toggleLike;
     const favourited = val ? 1 : 0;
     const response = await runRatingService(favourited);
-    console.log("data", await response.json());
   };
 
   return (

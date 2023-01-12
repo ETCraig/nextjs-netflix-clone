@@ -19,7 +19,7 @@
   height: 100%;
 
   flex-direction: column;
-  margin-top: 6rem;
+  margin-top: 10rem;
 }
 
 .nseriesWrapper {
@@ -27,7 +27,7 @@
 }
 
 .firstLetter {
-  font-size: 3.75rem;
+  font-size: 3.0rem;
   line-height: 1;
   color: var(--red);
   font-weight: 800;
@@ -52,7 +52,8 @@
   font-size: 1.125rem;
   line-height: 1.75rem;
   color: var(--white10);
-  -webkit-text-stroke: 1px lightgray;
+  padding-top: 1rem;
+  /* -webkit-text-stroke: 1px lightgray; */
 }
 
 .playBtnWrapper {
