@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import clsx from "classnames";
@@ -48,6 +48,25 @@ const Video = ({ video }) => {
   const [toggleLike, setToggleLike] = useState(false);
   const [toggleDisLike, setToggleDisLike] = useState(false);
 
+  useEffect(() => {
+    const handleLikeDislikeService = async () => {
+      const response = await fetch(`/api/stats?videoId=${videoId}`, {
+        method: "GET",
+      });
+      const data = await response.json();
+
+      if (data.length > 0) {
+        const favourited = data[0].favourited;
+        if (favourited === 1) {
+          setToggleLike(true);
+        } else if (favourited === 0) {
+          setToggleDisLike(true);
+        }
+      }
+    };
+    handleLikeDislikeService();
+  }, [videoId]);
+
   const runRatingService = async (favourited) => {
     return await fetch("/api/stats", {
       method: "POST",
@@ -74,7 +93,7 @@ const Video = ({ video }) => {
   const handleToggleLike = async () => {
     setToggleLike(val);
     setToggleDisLike(toggleLike);
-    
+
     const val = !toggleLike;
     const favourited = val ? 1 : 0;
     const response = await runRatingService(favourited);
