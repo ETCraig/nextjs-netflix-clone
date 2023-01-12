@@ -12,6 +12,7 @@
     "@magic-sdk/admin": "^1.8.0",
     "@next/font": "13.1.1",
     "classnames": "^2.3.2",
+    "cookie": "^0.5.0",
     "framer-motion": "^8.3.3",
     "jsonwebtoken": "^9.0.0",
     "magic-sdk": "^13.1.0",

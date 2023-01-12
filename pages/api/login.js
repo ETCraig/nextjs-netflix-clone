@@ -1,6 +1,7 @@
+import { setTokenCookie } from "../../lib/cookies";
 import { magicAdmin } from "../../lib/magic";
 import jwt from "jsonwebtoken";
-import { isNewUser } from "../../lib/db/hasura";
+import { createNewUser, isNewUser } from "../../lib/db/hasura";
 
 export default async function login(req, res) {
   if (req.method === "POST") {
@@ -28,7 +29,10 @@ export default async function login(req, res) {
       console.log({ token });
 
       const isNewUserQuery = await isNewUser(token, metadata.issuer);
-      res.send({ done: true, isNewUserQuery });
+
+      isNewUserQuery && (await createNewUser(token, metadata));
+      setTokenCookie(token, res);
+      res.send({ done: true });
     } catch (error) {
       console.error("Something went wrong logging in", error);
       res.status(500).send({ done: false });
