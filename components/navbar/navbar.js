@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Image from "next/image";
 import { magic } from "../../lib/magic-client";
 
@@ -8,6 +9,7 @@ import styles from "./navbar.module.css";
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState("");
+  const [didToken, setDidToken] = useState("");
 
   const router = useRouter();
 
@@ -46,8 +48,15 @@ const NavBar = () => {
     e.preventDefault();
 
     try {
-      await magic.user.logout();
-      router.push("/login");
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const res = await response.json();
     } catch (error) {
       console.error("Error logging out", error);
       router.push("/login");
@@ -57,7 +66,7 @@ const NavBar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a className={styles.logoLink}>
+        <Link className={styles.logoLink} href="/">
           <div className={styles.logoWrapper}>
             <Image
               src="/static/netflix.svg"
@@ -65,8 +74,8 @@ const NavBar = () => {
               width={128}
               height={34}
             />
-          </div>{" "}
-        </a>
+          </div>
+        </Link>
         <ul className={styles.navItems}>
           <li className={styles.navItem} onClick={handleOnClickHome}>
             Home
@@ -80,8 +89,8 @@ const NavBar = () => {
             <button className={styles.usernameBtn} onClick={handleShowDropdown}>
               <p className={styles.username}>{username}</p>
               <Image
-                src="/static/expand_more.svg"
-                alt="Expand more"
+                src={"/static/expand_more.svg"}
+                alt="Expand dropdown"
                 width={24}
                 height={24}
               />
