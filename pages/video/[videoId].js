@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import clsx from "classnames";
 import { getYoutubeVideoById } from "../../lib/videos";
 import NavBar from "../../components/navbar/navbar";
+import Like from "../../components/icons/like-icon";
+import DisLike from "../../components/icons/dislike-icon";
 
 import styles from "../../styles/Video.module.css";
 
@@ -10,7 +13,7 @@ Modal.setAppElement("#__next");
 
 export async function getStaticProps(context) {
   const videoId = context.params.videoId;
-  console.log(videoId)
+  console.log(videoId);
   const videoArray = await getYoutubeVideoById(videoId);
 
   return {
@@ -40,6 +43,20 @@ const Video = ({ video }) => {
     channelTitle,
     statistics: { viewCount } = { viewCount: 0 },
   } = video;
+  const [toggleLike, setToggleLike] = useState(false);
+  const [toggleDisLike, setToggleDisLike] = useState(false);
+
+  const handleToggleDislike = async () => {
+    console.log("handleToggleDislike");
+    setToggleDisLike(!toggleDisLike);
+    setToggleLike(toggleDisLike);
+  };
+
+  const handleToggleLike = async () => {
+    console.log("handleToggleLike");
+    setToggleLike(!toggleLike);
+    setToggleDisLike(toggleLike);
+  };
 
   return (
     <div className={styles.container}>
@@ -59,6 +76,21 @@ const Video = ({ video }) => {
           src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1`}
           className={styles.videoPlayer}
         ></iframe>
+
+        <div className={styles.likeDislikeBtnWrapper}>
+          <div className={styles.likeBtnWrapper}>
+            <button onClick={handleToggleLike}>
+              <div className={styles.btnWrapper}>
+                <Like selected={toggleLike} />
+              </div>
+            </button>
+          </div>
+          <button onClick={handleToggleDislike}>
+            <div className={styles.btnWrapper}>
+              <DisLike selected={toggleDisLike} />
+            </div>
+          </button>
+        </div>
 
         <div className={styles.modalBody}>
           <div className={styles.modalBodyContent}>
