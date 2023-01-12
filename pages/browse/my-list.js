@@ -32,6 +32,7 @@ const MyList = ({ myListVideos }) => {
     <div>
       <Head>
         <title>My list</title>
+        <link rel="icon" href="/images/favicon.ico" />
       </Head>
       <main className={styles.main}>
         <NavBar />
